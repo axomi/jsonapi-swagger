@@ -3,7 +3,10 @@ module Jsonapi
   module Swagger
     class Resource
       def self.with(model_class_name)
-        if Object.const_defined?("#{model_class_name}Resource")
+        if Object.const_defined?(Graphiti::Resource)
+          require 'jsonapi/swagger/resources/graphiti_resource'
+          return Jsonapi::Swagger::JsonapiResource.new(@resource_class)
+        elsif Object.const_defined?("#{model_class_name}Resource")
           @resource_class = "#{model_class_name}Resource".safe_constantize
           unless @resource_class < JSONAPI::Resource
             raise Jsonapi::Swagger::Error, "#{@resource_class.class} is not Subclass of JSONAPI::Resource!"
