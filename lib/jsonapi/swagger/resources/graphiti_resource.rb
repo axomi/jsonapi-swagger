@@ -35,7 +35,7 @@ module Jsonapi
       end
 
       def filters
-        @gr.keys
+        @gr.filters.keys
       end
 
       def mutable?
