@@ -3,8 +3,9 @@ module Jsonapi
   module Swagger
     class Resource
       def self.with(model_class_name)
-        if Object.const_defined?(Graphiti::Resource)
+        if Object.const_defined?("Graphiti::Resource")
           require 'jsonapi/swagger/resources/graphiti_resource'
+          @resource_class = "#{model_class_name}Resource".classify.constantize
           return Jsonapi::Swagger::JsonapiResource.new(@resource_class)
         elsif Object.const_defined?("#{model_class_name}Resource")
           @resource_class = "#{model_class_name}Resource".safe_constantize
